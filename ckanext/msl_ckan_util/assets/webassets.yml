@@ -1,0 +1,14 @@
+# msl_ckan_util-js:
+#   filter: rjsmin
+#   output: ckanext-msl_ckan_util/%(version)s-msl_ckan_util.js
+#   contents:
+#     - js/msl_ckan_util.js
+#   extra:
+#     preload:
+#       - base/main
+
+# msl_ckan_util-css:
+#   filter: cssrewrite
+#   output: ckanext-msl_ckan_util/%(version)s-msl_ckan_util.css
+#   contents:
+#     - css/msl_ckan_util.css

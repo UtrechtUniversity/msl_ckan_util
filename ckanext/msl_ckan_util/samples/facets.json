@@ -1,0 +1,14 @@
+{
+  "default":
+  {
+    "dataset_type": "Type",
+    "organization":  "Organizations",
+    "groups": "Groups"
+  },
+  "rockphysics" :
+  {
+    "msl_material": "Materials",
+    "tags": "Tags",
+    "msl_rock_measured_property": "Measured property"
+  }
+}
