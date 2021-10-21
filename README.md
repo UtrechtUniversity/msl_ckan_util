@@ -1,39 +1,18 @@
-[![Tests](https://github.com/UU/ckanext-msl_ckan_util/workflows/Tests/badge.svg?branch=main)](https://github.com/UU/ckanext-msl_ckan_util/actions)
-
 # ckanext-msl_ckan_util
 
-**TODO:** Put a description of your extension here:  What does it do? What features does it have? Consider including some screenshots or embedding a video!
+This extension contains a set of possibly reusable plugins developed for the EPOS MSL CKAN portal.
 
+Plugins contained in this extension:
+
+* msl_custom_facets
+* msl_repeating_fields
 
 ## Requirements
 
-**TODO:** For example, you might want to mention here which versions of CKAN this
-extension works with.
+This extension has been developed and tested with CKAN version 2.9.* 
+Use of this extension is depended on the CKAN scheming extension being loaded. 
 
-If your extension works across different versions you can add the following table:
-
-Compatibility with core CKAN versions:
-
-| CKAN version    | Compatible?   |
-| --------------- | ------------- |
-| 2.6 and earlier | not tested    |
-| 2.7             | not tested    |
-| 2.8             | not tested    |
-| 2.9             | not tested    |
-
-Suggested values:
-
-* "yes"
-* "not tested" - I can't think of a reason why it wouldn't work
-* "not yet" - there is an intention to get it working
-* "no"
-
-
-## Installation
-
-**TODO:** Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
+## Installation of extension
 
 To install ckanext-msl_ckan_util:
 
@@ -43,14 +22,14 @@ To install ckanext-msl_ckan_util:
 
 2. Clone the source and install it on the virtualenv
 
-    git clone https://github.com/UU/ckanext-msl_ckan_util.git
+    git clone https://git.science.uu.nl/epos-msl/msl_ckan_util.git
     cd ckanext-msl_ckan_util
     pip install -e .
 	pip install -r requirements.txt
 
-3. Add `msl_ckan_util` to the `ckan.plugins` setting in your CKAN
+3. Add names of plugins to the `ckan.plugins` setting in your CKAN
    config file (by default the config file is located at
-   `/etc/ckan/default/ckan.ini`).
+   `/etc/ckan/default/ckan.ini`). Specific names and settings per plugin are described in the section of the plugins.
 
 4. Restart CKAN. For example if you've deployed CKAN with Apache on Ubuntu:
 
@@ -59,21 +38,73 @@ To install ckanext-msl_ckan_util:
 
 ## Config settings
 
-None at present
+When config settings are required they are described per plugin.
 
-**TODO:** Document any optional config settings here. For example:
+## Custom facets plugin
+The custom facets plugin enables easy configuring of displayed facets in plugin by supplying a configuration json file.
+A default facet list should be given and optional facet lists per specific package type (configured in CKAN scheming) 
+can be configured.
 
-	# The minimum number of hours to wait before re-checking a resource
-	# (optional, default: 24).
-	ckanext.msl_ckan_util.some_setting = some_default_value
+### activate plugin
+To activate this plugin add the name `msl_custom_facets` to the `ckan.plugin` setting in the `ckan.ini`.
 
+### config
+This plugin requires a json config file to function. The location of the config file must be set in the `ckan.ini` file.
+The setting that should be added: `ckan.mslfacets.dataset_config` the value should contain the reference to the config 
+file. The value should be formatted like `<ckan_extension_name>:<path><filename>`. To reference the sample file config 
+supplied with this extension use: `ckanext.msl_ckan_util:samples/facets.json`.
+
+Sample json config file:
+
+     {
+     "default":
+     {
+       "dataset_type": "Type",
+       "organization":  "Organizations",
+       "groups": "Groups"
+     },
+     "rockphysics" :
+     {
+       "msl_material": "Materials",
+       "tags": "Tags",
+       "msl_rock_measured_property": "Measured property"
+     } 
+
+The default key should always be given. A list of facets can be supplied. The keys contain the fields that should be 
+faceted on and the value contains the displayed label at the text. Other lists of facets can be configured to be displayed 
+for specific dataset types. These should be configured using ckan scheming.
+
+## Repeating fields plugin
+
+This plugin 'flattens' repeating subfields defined in scheming schemas to enable solr to index the field.
+
+### activate plugin
+To activate this plugin add the name `msl_repeating_fields` to the `ckan.plugin` setting in the `ckan.ini`.
+
+### config
+
+This plugin requires a json config file to function. The location of the config file must be set in the `ckan.ini` file.
+The setting that should be added: `ckan.mslfacets.dataset_config` the value should contain the reference to the config 
+file. The value should be formatted like `<ckan_extension_name>:<path><filename>`. To reference the sample file config 
+supplied with this extension use: `ckanext.msl_ckan_util:samples/msl_index_fields.json`.
+
+Sample json config file:
+
+      {
+      "special_index_fields": [
+        "msl_material",
+        "msl_rock_measured_property"
+      ]
+      }
+
+The `special_index_fields` should contain a list of fields that should be 'flattened' for SOLR indexing.
 
 ## Developer installation
 
 To install ckanext-msl_ckan_util for development, activate your CKAN virtualenv and
 do:
 
-    git clone https://github.com/UU/ckanext-msl_ckan_util.git
+    git clone https://git.science.uu.nl/epos-msl/msl_ckan_util.git
     cd ckanext-msl_ckan_util
     python setup.py develop
     pip install -r dev-requirements.txt
