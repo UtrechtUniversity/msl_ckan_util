@@ -74,6 +74,16 @@ The default key should always be given. A list of facets can be supplied. The ke
 faceted on and the value contains the displayed label at the text. Other lists of facets can be configured to be displayed 
 for specific dataset types. These should be configured using ckan scheming.
 
+### default CKAN facets
+
+The default implemented CKAN facets are:
+
+      "organization": "Organizations",
+      "groups": "Groups",
+      "tags": "Tags",
+      "res_format": "Formats",
+      "license_id": "Licenses"
+
 ## Repeating fields plugin
 
 This plugin 'flattens' repeating subfields defined in scheming schemas to enable solr to index the field.
