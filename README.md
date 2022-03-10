@@ -94,7 +94,7 @@ To activate this plugin add the name `msl_repeating_fields` to the `ckan.plugin`
 ### config
 
 This plugin requires a json config file to function. The location of the config file must be set in the `ckan.ini` file.
-The setting that should be added: `ckan.mslfacets.dataset_config` the value should contain the reference to the config 
+The setting that should be added: `ckan.mslindexfields.fields_config` the value should contain the reference to the config
 file. The value should be formatted like `<ckan_extension_name>:<path><filename>`. To reference the sample file config 
 supplied with this extension use: `ckanext.msl_ckan_util:samples/msl_index_fields.json`.
 
