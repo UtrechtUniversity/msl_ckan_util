@@ -56,8 +56,8 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
                 if definition['field_name'] not in data_dict: # if newly defined field is not in package then skip
                     continue
                 if 'repeating_subfields' in definition: # if field is in data_dict and is compound
-                    multi_values = set()  # create empty multi-valued set
                     for sub_definition in definition['repeating_subfields']:  # traverse schema definition
+                        multi_values = set()  # create empty multi-valued set
                         if sub_definition['field_name'] in special_index_fields:  # d_sub['field_name'] is keyname as string
                             # subkey is in special fields for index (e.g. msl_material)
                             for entry in data_dict[definition['field_name']]:  # traverse package
@@ -68,7 +68,6 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
 
                     # TODO: convert full parent dict to flattened string: alternative is to remove key from datadict
                     data_dict[definition['field_name']] = json.dumps(data_dict[definition['field_name']])
-                    # data_dict.update({sub_definition['field_name']: sorted(multi_values)})
 
         return data_dict
 
