@@ -53,11 +53,21 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
 
             definitions = schemas[data_dict['type']]['dataset_fields']
             for definition in definitions: # package is of expanded type, we walk through the schema dataset_fields
-                if definition['field_name'] not in data_dict: # if newly defined field is not in package then skip
-                    continue
                 if 'repeating_subfields' in definition: # if field is in data_dict and is compound
                     for sub_definition in definition['repeating_subfields']:  # traverse schema definition
                         multi_values = set()  # create empty multi-valued set
+
+                        # check if sub_definition is repeating_subfield and traverse
+                        if 'repeating_subfields' in sub_definition:
+                            for deep_definition in sub_definition['repeating_subfields']:
+                                if deep_definition['field_name'] in special_index_fields:  # d_sub['field_name'] is keyname as string
+                                    # subkey is in special fields for index (e.g. msl_material)
+                                    for entry in data_dict[definition['field_name']]:  # traverse package
+                                        if deep_definition['field_name'] in entry:
+                                            multi_values.add(entry[deep_definition['field_name']])  # |- Python in-place operator
+                                    if len(multi_values):
+                                        data_dict.update({deep_definition['field_name']: sorted(multi_values)})
+
                         if sub_definition['field_name'] in special_index_fields:  # d_sub['field_name'] is keyname as string
                             # subkey is in special fields for index (e.g. msl_material)
                             for entry in data_dict[definition['field_name']]:  # traverse package
