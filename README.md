@@ -6,6 +6,7 @@ Plugins contained in this extension:
 
 * msl_custom_facets
 * msl_repeating_fields
+* msl_search
 
 ## Requirements
 
@@ -89,6 +90,7 @@ The default implemented CKAN facets are:
 This plugin 'flattens' repeating subfields defined in scheming schemas to enable solr to index the field.
 
 ### activate plugin
+
 To activate this plugin add the name `msl_repeating_fields` to the `ckan.plugin` setting in the `ckan.ini`.
 
 ### config
@@ -108,6 +110,15 @@ Sample json config file:
       }
 
 The `special_index_fields` should contain a list of fields that should be 'flattened' for SOLR indexing.
+
+## Search plugin
+
+This plugin changes all searches to use the SOLR eDisMax query parser instead of the dismax version.
+
+### activate plugin
+
+To activate this plugin add the name `msl_search` to the `ckan.plugin` setting in the `ckan.ini`.
+
 
 ## Developer installation
 
