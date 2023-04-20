@@ -107,3 +107,13 @@ class MslCkanUtilPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, 'public')
         toolkit.add_resource('fanstatic',
             'msl_ckan_util')
+
+
+class MslSearchPlugin(plugins.SingletonPlugin):
+    plugins.implements(plugins.IPackageController, inherit=True)
+
+    def before_search(self, search_params):
+        search_params["defType"] = "edismax"
+        search_params["mm"] = "1"
+
+        return search_params

@@ -87,6 +87,7 @@ setup(
         msl_ckan_util=ckanext.msl_ckan_util.plugin:MslCkanUtilPlugin
         msl_custom_facets=ckanext.msl_ckan_util.plugin:MslFacetsPlugin
         msl_repeating_fields=ckanext.msl_ckan_util.plugin:MslIndexRepeatedFieldsPlugin
+        msl_search=ckanext.msl_ckan_util.plugin:MslSearchPlugin
 
         [babel.extractors]
         ckan = ckan.lib.extract:extract_ckan
