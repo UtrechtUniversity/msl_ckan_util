@@ -38,7 +38,7 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
 
     SPECIAL_INDEX_FIELDS_OPTION = 'mslindexfields.field_config'
 
-    def before_index(self, data_dict):
+    def before_dataset_index(self, data_dict):
         # read special fields for index (must be available in SOLR schema):
         config_setting = config.get(self.SPECIAL_INDEX_FIELDS_OPTION, "")
         if config_setting != "":
@@ -68,7 +68,7 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
 
                     # TODO: convert full parent dict to flattened string: alternative is to remove key from datadict
                     data_dict[definition['field_name']] = json.dumps(data_dict[definition['field_name']])
-
+        
         return data_dict
 
 
