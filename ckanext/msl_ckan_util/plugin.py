@@ -68,7 +68,15 @@ class MslIndexRepeatedFieldsPlugin(plugins.SingletonPlugin):
 
                     # TODO: convert full parent dict to flattened string: alternative is to remove key from datadict
                     data_dict[definition['field_name']] = json.dumps(data_dict[definition['field_name']])
-        
+            
+            
+            remove_index_fields = index_dict['remove_index_fields']
+            
+            # remove fields from data_dict to prevent solr indexing
+            for remove_field in remove_index_fields:
+                data_dict.pop(remove_field, None)
+            
+            
         return data_dict
 
 
