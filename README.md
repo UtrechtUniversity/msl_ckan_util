@@ -103,13 +103,17 @@ supplied with this extension use: `ckanext.msl_ckan_util:samples/msl_index_field
 Sample json config file:
 
       {
-      "special_index_fields": [
+    "special_index_fields": [
         "msl_material",
         "msl_rock_measured_property"
-      ]
-      }
+    ],
+    "remove_index_fields": [
+        "msl_tags"
+    ]
+}
 
 The `special_index_fields` should contain a list of fields that should be 'flattened' for SOLR indexing.
+The `remove_index_fields` contains a list to specify which fields should be removed from the data send to SOLR.
 
 ## Search plugin
 
